@@ -8,8 +8,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -26,23 +29,47 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
 
-            <HBox spacing="30.0">
-                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                    <Label text="Wartość I klucza" />
-                    <TextField fx:id="key1Field" />
-                </VBox>
-                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                    <Label text="Wartość II klucza" />
-                    <TextField fx:id="key2Field" />
-                </VBox>
-                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                    <Label text="Wartość III klucza" />
-                    <TextField fx:id="key3Field" />
-                </VBox>
-            </HBox>
+
+            <GridPane hgap="10.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130.0" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <Label text="Klucz Publiczny: g" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <font>
+                            <Font size="14.0" />
+                        </font></Label>
+                    <TextField fx:id="gField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Klucz Publiczny: h" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="14.0" />
+                        </font></Label>
+                    <TextField fx:id="hField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Klucz Prywatny: a" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <font>
+                            <Font size="14.0" />
+                        </font></Label>
+                    <TextField fx:id="aField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="MOD N" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <font>
+                            <Font size="14.0" />
+                        </font></Label>
+                    <TextField fx:id="modField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                </children>
+            </GridPane>
 
             <HBox alignment="CENTER_LEFT" spacing="15.0">
-                <Label text="Wygeneruj wartość klucza" />
+                <Label text="Wygeneruj wartości kluczy" />
                 <Button fx:id="generateKeysBtn" text="Generuj klucze" />
             </HBox>
 
@@ -51,7 +78,8 @@
                 <TextField fx:id="loadKeyPathField" prefWidth="150.0" promptText="Nazwa pliku kluczy" />
                 <Button fx:id="loadKeyBtn" text="Wczytaj" />
 
-                <Region HBox.hgrow="ALWAYS" /> <Label text="Zapisz klucze do pliku" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Zapisz klucze do pliku" />
                 <TextField fx:id="saveKeyPathField" prefWidth="150.0" promptText="Nazwa pliku kluczy" />
                 <Button fx:id="saveKeyBtn" text="Zapisz" />
             </HBox>
@@ -66,16 +94,16 @@
 
             <VBox maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
                 <Label text="Otwórz plik zawierający tekst jawny" />
-            <HBox prefHeight="15.0" prefWidth="369.0">
-               <children>
-                  <Label prefHeight="17.0" prefWidth="65.0" text="Status : " />
-                  <Label fx:id="plainStatusTitle" prefHeight="17.0" prefWidth="327.0" text="Nic nie wprowadzono">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
+                <HBox prefHeight="15.0" prefWidth="369.0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="65.0" text="Status : " />
+                        <Label fx:id="plainStatusTitle" prefHeight="17.0" prefWidth="327.0" text="Nic nie wprowadzono">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
                 <HBox spacing="5.0">
                     <TextField fx:id="openPlainPathField" promptText="Nazwa pliku z tekstem jawnym" HBox.hgrow="ALWAYS" />
                     <Button fx:id="openPlainBtn" text="Otwórz" />
@@ -100,25 +128,25 @@
                     </fx:define>
 
                     <RadioButton fx:id="fileModeRadio" selected="true" text="Plik">
-                  <toggleGroup>
-                     <ToggleGroup fx:id="modeToggleGroup" />
-                  </toggleGroup></RadioButton>
+                        <toggleGroup>
+                            <ToggleGroup fx:id="modeToggleGroup" />
+                        </toggleGroup></RadioButton>
                     <RadioButton fx:id="windowModeRadio" text="Okno" toggleGroup="$modeToggleGroup" />
                 </VBox>
             </VBox>
 
             <VBox maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
                 <Label text="Otwórz plik zawierający szyfrogram" />
-            <HBox prefHeight="15.0" prefWidth="369.0">
-               <children>
-                  <Label prefHeight="17.0" prefWidth="61.0" text="Status : " />
-                  <Label fx:id="cipherStatusTitle" prefHeight="17.0" prefWidth="327.0" text="Nic nie wprowadzono">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
+                <HBox prefHeight="15.0" prefWidth="369.0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="61.0" text="Status : " />
+                        <Label fx:id="cipherStatusTitle" prefHeight="17.0" prefWidth="327.0" text="Nic nie wprowadzono">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
                 <HBox spacing="5.0">
                     <TextField fx:id="openCipherPathField" promptText="Nazwa pliku z szyfrogramem" HBox.hgrow="ALWAYS" />
                     <Button fx:id="openCipherBtn" text="Otwórz" />
@@ -135,9 +163,9 @@
 
         </HBox>
     </TitledPane>
-   <Button fx:id="resetButton" mnemonicParsing="false" text="RESET" textFill="#ae0303">
-      <font>
-         <Font name="System Bold" size="21.0" />
-      </font>
-   </Button>
+    <Button fx:id="resetButton" mnemonicParsing="false" text="RESET" textFill="#ae0303">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Button>
 </VBox>
