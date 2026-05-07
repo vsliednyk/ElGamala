@@ -1,5 +1,5 @@
 /*
- * Projekt na Kryptografię (zad 2) - Szyfrowanie asymetryczne "ElGamala"
+ * Projekt na Kryptografię (zad 1) - Szyfrowanie symetryczne "Triple ElGamala"
  * Copyright (C) 2026 Igor Wiktorowicz & Viktor Sliednyk
  *
  * This program is free software; you can redistribute it and/or modify
@@ -13,12 +13,23 @@
  * GNU General Public License for more details.
  */
 
-package kryptografia;
+package kryptografia.exceptions;
 ///
-/// Imitujemy launcher naszej aplikacji
+/// Custom exception
+/// @see java.io.Serializable
+/// @see java.lang.Exception
+/// @see java.lang.RuntimeException
+/// @see java.lang.Throwable
 ///
-public class Launcher {
-        public static void main(String[] args) {
-            StartKrypto.main(args);
-        }
+public class KException extends RuntimeException {
+    public KException(String message) {
+        super(message);
+    }
+    public KException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public KException(){
+        super("Unknown Error");
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Projekt na Kryptografię (zad 2) - Szyfrowanie asymetryczne "ElGamala"
+ * Projekt na Kryptografię (zad 1) - Szyfrowanie symetryczne "Triple ElGamala"
  * Copyright (C) 2026 Igor Wiktorowicz & Viktor Sliednyk
  *
  * This program is free software; you can redistribute it and/or modify
@@ -13,12 +13,15 @@
  * GNU General Public License for more details.
  */
 
-package kryptografia;
+package kryptografia.exceptions;
 ///
-/// Imitujemy launcher naszej aplikacji
+/// @see kryptografia.exceptions.KException
 ///
-public class Launcher {
-        public static void main(String[] args) {
-            StartKrypto.main(args);
-        }
+public class KBytesToTextException extends KException {
+    public KBytesToTextException(String message) {
+        super(message);
+    }
+    public KBytesToTextException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

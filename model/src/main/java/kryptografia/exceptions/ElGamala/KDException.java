@@ -1,5 +1,5 @@
 /*
- * Projekt na Kryptografię (zad 2) - Szyfrowanie asymetryczne "ElGamala"
+ * Projekt na Kryptografię (zad 1) - Szyfrowanie symetryczne "Triple ElGamala"
  * Copyright (C) 2026 Igor Wiktorowicz & Viktor Sliednyk
  *
  * This program is free software; you can redistribute it and/or modify
@@ -13,12 +13,19 @@
  * GNU General Public License for more details.
  */
 
-package kryptografia;
+package kryptografia.exceptions.ElGamala;
+
+import kryptografia.exceptions.KException;
+
 ///
-/// Imitujemy launcher naszej aplikacji
-///
-public class Launcher {
-        public static void main(String[] args) {
-            StartKrypto.main(args);
-        }
+/// @see kryptografia.exceptions.KException
+/// @implNote Ten wyjatek sluzy do wykazania specyficznych bledow w funkconalnosci ElGamala'a
+public abstract class KDException extends KException {
+    public KDException(String message) {
+        super(message);
+    }
+
+    public KDException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
