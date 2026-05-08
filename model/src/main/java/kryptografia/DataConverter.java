@@ -16,12 +16,9 @@
 package kryptografia;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import kryptografia.exceptions.*;
@@ -36,13 +33,24 @@ public class DataConverter {
         throw new UnsupportedOperationException("To klasa przechowujaca narzedzia.");
     }
 
-        public static byte[] fileToBytes(String filePath){
+    ///
+    /// Funkcja konwertujaca plik na bajty
+    /// @param filePath Sciezka do pliku
+    /// @return {@code byte[]}
+    /// @throws KFileToBytesException
+    public static byte[] fileToBytes(String filePath){
         try {
             return Files.readAllBytes(Paths.get(filePath));
         } catch (IOException e) {
             throw new KFileToBytesException("Nie udało się wczytać pliku: " + filePath, e);
         }
     }
+
+    ///
+    /// Funkcja konwertujaca bajty na plik
+    /// @param data bajty do kowersji
+    /// @param filePath sciezka do pliku
+    /// @throws KBytesToFileException
     public static void bytesToFile(byte[] data, String filePath){
         try {
             Files.write(Paths.get(filePath), data);
@@ -51,6 +59,13 @@ public class DataConverter {
             throw new KBytesToFileException("Nie udało się zapisu pliku: " + filePath, e);
         }
     }
+
+    ///
+    /// Funkcja konwertujaca tekst na bajty przy
+    /// @implNote Uzywa charset UTF8
+    /// @param text tekst do konwersji
+    /// @return {@code byte[]}
+    /// @throws KTextToBytesException
     public static byte[] textToBytes(String text){
         try{
             return text.getBytes(StandardCharsets.UTF_8);
@@ -59,6 +74,12 @@ public class DataConverter {
             throw new KTextToBytesException("Nie udało się przekonwertować tekstu", e);
         }
     }
+
+    ///
+    /// Funkcja zamieniajaca bajty w tekst
+    /// @param data bajty do przerobienia
+    /// @return {@link String}
+    /// @throws KBytesToTextException
     public static String bytesToText(byte[] data){
         try{
             return new String(data, StandardCharsets.UTF_8);
@@ -67,15 +88,28 @@ public class DataConverter {
             throw new KBytesToTextException("Nie udało się dokonac konwersji na tekstu", e);
         }
     }
+
+    ///
+    /// Funkcja do przekonwertowania tablicy bajtow na tekst o kodowaniu Base64
+    /// @param data tablica bajtow do zakodowania
+    /// @return {@link String}
     public static String bytesToBase64(byte[] data) {
         return Base64.getEncoder().encodeToString(data);
     }
+
+    ///
+    /// Funkcja do przekonwertowania tesktu o kodowaniu Base64 na tablice bajtow
+    /// @param base64Text Tekst o kodowaniu Base64
+    /// @return {@code byte[]}
     public static byte[] base64ToBytes(String base64Text) {
         return Base64.getDecoder().decode(base64Text);
     }
 
     ///
     /// Funkcja pomocnicza: Pilnuje, aby bloki miały zawsze stałą długość (usuwa znak BigInteger)
+    /// Funkcja do pilnowania stalej gdkugosci
+    /// @param data dane w postaci bajtowej ktore trzeba dopasowac
+    /// @param targetLength dlugosc do ktorej sie dopasowuje dane
     public static byte[] formatToExactLength(byte[] data, int targetLength) {
         byte[] result = new byte[targetLength];
         if (data.length == targetLength) {
@@ -89,7 +123,10 @@ public class DataConverter {
     }
 
     ///
-    /// Funkcja pomocnicza: Dodaje dynamiczny padding PKCS7
+    /// Funkcja pomagajaca rozszerzyc podana tablice bajtow do bloku o podanym rozmiarze
+    /// @param data tablcia bajtow ktora trzeba rozszerzyc
+    /// @param blockSize Rozmiar bloku
+    /// @return {@code byte[]}
     public static byte[] addPKCS7Padding(byte[] data, int blockSize){
         int paddingLength = blockSize - (data.length % blockSize);
         byte[] extendedData = new byte[data.length + paddingLength];
@@ -103,7 +140,9 @@ public class DataConverter {
     }
 
     ///
-    /// Funkcja pomocnicza: Usuwa dynamiczny padding PKCS7
+    /// Funkcja usuwajaca zbedne bajty po rozszerzeniu
+    /// @param data tablica bajtow do zmniejszenia
+    /// @return {@code byte[]}
     public static byte[] removePKCS7Padding(byte[] data){
         if (data == null || data.length == 0) {
             return data;
@@ -114,9 +153,4 @@ public class DataConverter {
         }
         return data;
     }
-
-
-
-
-
 }

@@ -37,7 +37,7 @@ public class ElGamal {
     }
 
     ///
-    /// Deszyfrowanie
+    /// Deszyfrowanie (Konstruktor)
     ///
     public ElGamal(BigInteger a, BigInteger modN){
         this.a = a;
@@ -59,7 +59,7 @@ public class ElGamal {
             byte[] blockBytes = new byte[plainBlockSize];
             System.arraycopy(paddedData, i * plainBlockSize, blockBytes, 0, plainBlockSize);
 
-            BigInteger m = new BigInteger(1, blockBytes);
+            BigInteger m = new BigInteger(1, blockBytes); // Przetwarzanie na bajty
             BigInteger[] encrypted = encryptBlock(m);
 
             byte[] c1Bytes = DataConverter.formatToExactLength(encrypted[0].toByteArray(), keyByteLength);
