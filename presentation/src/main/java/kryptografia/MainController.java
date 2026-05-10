@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 
 
 
+
 ///
 /// Glowna klasa obslugujaca UI
 ///
@@ -140,11 +141,10 @@ public class MainController {
         do {
             q = BigInteger.probablePrime(bitLength - 1, random);
             p = q.multiply(BigInteger.valueOf(2)).add(BigInteger.ONE);
-        } while (!p.isProbablePrime(50)); // Sprawdzamy czy p jest pierwsze
+        } while (!MillerRabin.millerRabinTest(p,50)); // Sprawdzamy czy p jest pierwsze
 
-        // 2. Szukanie silnego generatora g
-        // W grupie o rzędzie p = 2q + 1, dowolna liczba g jest generatorem,
-        // jeśli g^2 != 1 (mod p) oraz g^q != 1 (mod p)
+        // Szukanie silnego generatora przy uzyciu force petli z 2 warunkami
+        // g^2 != 1 (mod p) oraz g^q != 1 (mod p)
         BigInteger g = BigInteger.valueOf(2);
         while (true) {
             if (!g.modPow(BigInteger.valueOf(2), p).equals(BigInteger.ONE) &&
