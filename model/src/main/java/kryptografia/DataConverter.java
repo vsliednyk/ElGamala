@@ -106,7 +106,6 @@ public class DataConverter {
     }
 
     ///
-    /// Funkcja pomocnicza: Pilnuje, aby bloki miały zawsze stałą długość (usuwa znak BigInteger)
     /// Funkcja do pilnowania stalej gdkugosci
     /// @param data dane w postaci bajtowej ktore trzeba dopasowac
     /// @param targetLength dlugosc do ktorej sie dopasowuje dane
